@@ -28,7 +28,7 @@ Operations:
  - **chargeback** - resolve dispute reversing the transaction (withdraw or deposit) and block user to check fraud
 
 
-## Approuch 
+## Approach 
 
 Separate transactions by accounts, to avoid unnecessary costs in search operations. We have 3 different operations that do searches: **dispute**, **solve** and **reverse**.
 
