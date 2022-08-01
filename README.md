@@ -36,13 +36,13 @@ Separate transactions by accounts, to avoid unnecessary costs in search operatio
 
 ### To finish this challenge implementation
 
-Spawn threads to handle the summary function quickly (use subsets of accounts).
-Try different approach to reading CSV's 
+Spawn threads to handle the summary function quickly (use subsets of accounts)
+Try different approach to read CSV's 
 Library Documentation
 Integration tests
 
 ### Scalability
-In case you receive many requests to this program, you must use an SQS or similar to handle the process in the background, for greater efficiency you could use a file provider to save ".csv" files (S3) and use a Worker/Consumer to read from the SQS and get these files from your location.
+In case you receive many requests to this program, you must use an SQS or similar to handle the process in the background, for greater efficiency you could use a file provider to save ".csv" files (S3) and use a Worker/Consumer to read from the SQS and get these files from their location.
 
 ### Issues
 
