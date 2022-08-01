@@ -37,8 +37,11 @@ Separate transactions by accounts, to avoid unnecessary costs in search operatio
 ### To finish this challenge implementation
 
 Spawn threads to handle the summary function quickly (use subsets of accounts)
+
 Try different approach to read CSV's 
+
 Library Documentation
+
 Integration tests
 
 ### Scalability
