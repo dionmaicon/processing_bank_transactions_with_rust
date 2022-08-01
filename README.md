@@ -46,5 +46,5 @@ In case you receive many requests to this program, you must use an SQS or simila
 
 ### Issues
 
-**chargebacks** In my opinion chargebacks shouldn't be processed in batch files, to avoid fraud maybe it should use a warning in the logger and include the chargeback transactions in another file to be processed after careful verification.
+In my opinion **chargebacks** shouldn't be processed in batch files, to avoid fraud maybe it should use a warning in the logger and include the chargeback transactions in another file to be processed after careful verification.
 
