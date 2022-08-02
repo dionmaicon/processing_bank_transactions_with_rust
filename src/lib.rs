@@ -235,8 +235,6 @@ pub fn summarize_transactions( transactions_by_client: &mut HashMap<u16, Vec<Tra
         }
         summarized.push(account);
     }
-    
-    debug!("Summarized Accounts: \n {:#?}", summarized);
     Ok(summarized)
 }
 
