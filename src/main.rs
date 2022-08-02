@@ -33,9 +33,9 @@ fn main() {
     let subsets_chunks = split(&chunks, 2);
            
     let mut summarize_threads = Vec::new();
-    for set_chunk in subsets_chunks {
-        let cloned_sets =  set_chunk.to_vec();
-        for set in cloned_sets {
+    subsets_chunks.into_iter().for_each(|set_chunk| {
+        let cloned_sets: Vec<HashMap<u16, Vec<processing_bank_transactions_with_rust::Transaction>>> =  set_chunk.to_vec();
+        cloned_sets.into_iter().for_each(|set| {
            let th = thread::spawn( move || {
            return match summarize_transactions(&mut set.clone()) {
                 Ok(values) => values,
@@ -46,17 +46,17 @@ fn main() {
             };
         });
         summarize_threads.push(th);
-        }
-    }
+        });
+    });
 
     let mut accounts = Vec::new();
-    for sub in summarize_threads {
-        let result = sub.join().expect("Error");
-        let accs = result.to_vec();
-        for acc in accs {
+    summarize_threads.into_iter().for_each(|sub| {
+        let result: Vec<processing_bank_transactions_with_rust::Account> = sub.join().expect("Thread error");
+        let accs: Vec<processing_bank_transactions_with_rust::Account> = result.to_vec();
+        accs.into_iter().for_each(|acc| {
             accounts.push(acc);
-        }
-    }
+        });
+    });
 
     let _ = write_to_stdout(&accounts);
 }
