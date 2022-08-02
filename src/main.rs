@@ -1,15 +1,8 @@
 use std::collections::HashMap;
-use std::fmt::Debug;
 use std::process;
 use std::thread;
 
 use processing_bank_transactions_with_rust::{ read_csv, summarize_transactions, write_to_stdout };
-
-
-fn split<T>(arr: &[T], n: usize ) -> Vec<&[T]> where T: Debug {
-    let chunks: Vec<&[T]> = arr.chunks(n).collect();
-    chunks
-}
 
 fn main() {
     env_logger::init();
@@ -25,19 +18,17 @@ fn main() {
     let list: Vec<_> = transactions_by_client.into_iter().collect();
     
 
-    let chunk_len = (list.len() / 4) as usize + 1;
+    let chunk_len = (list.len() / 3) as usize + 1;
     let chunks: Vec<HashMap<_, _>> = list.chunks(chunk_len)
         .map(|c| c.iter().cloned().collect())
         .collect();
-
-    let subsets_chunks = split(&chunks, 2);
-           
+       
     let mut summarize_threads = Vec::new();
-    subsets_chunks.into_iter().for_each(|set_chunk| {
-        let cloned_sets: Vec<HashMap<u16, Vec<processing_bank_transactions_with_rust::Transaction>>> =  set_chunk.to_vec();
-        cloned_sets.into_iter().for_each(|set| {
-           let th = thread::spawn( move || {
-           return match summarize_transactions(&mut set.clone()) {
+
+    
+    chunks.into_iter().for_each(|set_chunk| {
+         let th = thread::spawn( move || {
+           return match summarize_transactions(&mut set_chunk.clone()) {
                 Ok(values) => values,
                 Err(err) => {
                     println!("Summarize process error: {}", err);
@@ -46,7 +37,6 @@ fn main() {
             };
         });
         summarize_threads.push(th);
-        });
     });
 
     let mut accounts = Vec::new();
