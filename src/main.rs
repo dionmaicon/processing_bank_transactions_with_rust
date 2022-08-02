@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use std::process;
 use std::thread;
 
+use processing_bank_transactions_with_rust::Account;
 use processing_bank_transactions_with_rust::{ read_csv, summarize_transactions, write_to_stdout };
 
 fn main() {
@@ -41,8 +42,8 @@ fn main() {
 
     let mut accounts = Vec::new();
     summarize_threads.into_iter().for_each(|sub| {
-        let result: Vec<processing_bank_transactions_with_rust::Account> = sub.join().expect("Thread error");
-        let accs: Vec<processing_bank_transactions_with_rust::Account> = result.to_vec();
+        let result: Vec<Account> = sub.join().expect("Thread error");
+        let accs: Vec<Account> = result.to_vec();
         accs.into_iter().for_each(|acc| {
             accounts.push(acc);
         });
